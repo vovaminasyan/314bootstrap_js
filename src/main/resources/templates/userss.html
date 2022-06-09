@@ -66,7 +66,14 @@
                 <td th:text="${user.getUsername()}"></td>
                 <td th:text="${user.password}"></td>
                 <td th:text="${user.email}"></td>
-                <td th:text="${user.roles}"></td>
+<!--                <td th:text="${user.roles}"></td>-->
+                <td>
+<!--                    <ul>-->
+                        <th:block th:each="msg : ${user.getRoles()}">
+                            <li th:text="${msg.getRole()}"></li>
+                        </th:block>
+<!--                    </ul>-->
+                </td>
                 <td><a th:href="@{admin/update/{id}(id=${user.getId()})}">Edit</a></td>
                 <td><a th:href="@{admin/delete/{id}(id=${user.id})}">Delete</a></td>
             </tr>

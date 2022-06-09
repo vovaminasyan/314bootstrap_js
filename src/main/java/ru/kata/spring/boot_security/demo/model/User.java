@@ -27,10 +27,10 @@ public class User implements UserDetails {
 //    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 //    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
 //    @Enumerated(EnumType.STRING)
-    @ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name="users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany//(fetch=FetchType.LAZY)
+//    @JoinTable(name="users_roles",
+//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
     public User() {}
@@ -120,13 +120,13 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
+        return //"User{" +
                 "id=" + id +
                 ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", roles=" + roles +
-                '}';
+                ", roles=" + getRoles();
+                        //+ '}';
     }
 }
 

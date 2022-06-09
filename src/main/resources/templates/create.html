@@ -15,9 +15,31 @@
     <label for="email">Email</label>
     <input type="text" th:field="*{email}" id="email" placeholder="Email">
     <br/>
+    <tr>
+        <td>
+            <label>Roles:
+                <select size="2" multiple name="listRoles" required="required">
+                    <option selected="selected" value="ROLE_USER">USER</option>
+                    <option value="ROLE_ADMIN">ADMIN</option>
+                </select>
+            </label>
+        </td>
+    </tr>
 <!--    <label for="roles">Roles</label>-->
 <!--    <input type="text" th:field="*{roles}" id="roles" placeholder="Roles">-->
-<!--    <br/>-->
+<!--    <label>-->
+<!--        <select multiple size="2" th:name="roles" th:field="*{roles}">-->
+<!--            <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>-->
+<!--        </select>-->
+<!--    </label>-->
+<!--    <td th:each="role : ${roles}">-->
+<!--        <div>-->
+<!--            <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(user.roles, role)}"-->
+<!--            th:utext="${role}">-->
+<!--        </div>-->
+<!--    </td>-->
+
+    <br/>
     <input type="submit" value="Create User">
 </form>
 <form th:action="@{/logout}" method="post">

@@ -24,7 +24,7 @@ public class UserDao {
        // User use2 = users.stream().filter(use -> use.getFirstName() == user.getFirstName()).findAny().orElse(null);
       // System.out.println(user);
        // return user;
-        return sessionFactory.createQuery("select u FROM User u WHERe u.username = :id", User.class)
+        return sessionFactory.createQuery("select u FROM User u JOIn fETCH u.roles WHERe u.username = :id", User.class)
                 .setParameter("id", username)
                 .getResultList().stream().findAny().orElse(null);
     }
