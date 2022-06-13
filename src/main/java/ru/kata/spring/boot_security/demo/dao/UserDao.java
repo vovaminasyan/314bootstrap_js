@@ -34,7 +34,7 @@ public class UserDao {
         sessionFactory.remove(us);
     }
 
-    public void update(Long id, String userName, String password, String email, Set<Role> roles) {
+    public void update(Long id, String userName, String password, String email, List<Role> roles) {
         User us = sessionFactory.find(User.class, id);
         us.setId(id);
         us.setUsername(userName);
@@ -54,6 +54,7 @@ public class UserDao {
     public List<User> listUsers() {
         return sessionFactory.createQuery("select s from User s", User.class).getResultList();
     }
+
     public User findById(Long id) {
         return sessionFactory.find(User.class, id);//listUsers().stream().filter(user -> user.getId() == id).findAny().orElse(null);
     }

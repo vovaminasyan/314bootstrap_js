@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,7 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "role")
     private String role;
+
 
 //  //  @Transient
 //    @ManyToMany(mappedBy = "roles")
@@ -50,7 +52,14 @@ public class Role implements GrantedAuthority {
          ;
     }
 
+    public String getNoPrefix() {
+        String pr = "ROLE_";
+        return role.substring(pr.length());
+    }
 
+    public Long getNumberOfRole() {
+        return Objects.equals(role, "ROLE_USER") ? 2L : 1L;
+    }
 
     public Long getId() {
         return id;
@@ -61,6 +70,8 @@ public class Role implements GrantedAuthority {
     }
 
     public String getRole() {
+//        String pr = "ROLE_";
+//        return role.substring(pr.length());
         return role;
     }
 

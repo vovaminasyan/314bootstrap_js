@@ -71,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
        Role rol = new Role("ROLE_ADMIN");
        // Role rolU = new Role("ROLE_USER");
        Set<Role> aut = new HashSet<>(Arrays.asList(rol/*, rolU*/));//Stream.of(rol).collect(Collectors.toSet());
-       ru.kata.spring.boot_security.demo.model.User us = new ru.kata.spring.boot_security.demo.model
-        .User("admin3", "admin", "op@kk", aut);
+    //   ru.kata.spring.boot_security.demo.model.User us = new ru.kata.spring.boot_security.demo.model
+     //   .User("admin3", "admin", "op@kk", aut);
 //       // userService.update(19l,"admin4", "admin", "op@kk", aut);
        //userService.add(us);
         User user = userService.findByUsername("admin2");

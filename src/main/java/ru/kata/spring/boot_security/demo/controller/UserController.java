@@ -9,10 +9,8 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasRole('ADMIN')")
@@ -33,19 +31,34 @@ public class UserController {
     }
 
     @GetMapping("create")
-    public String createUserForm(User user) {
+    public String createUserForm(User user, Model model) {
+//        Set<Role> setr = new HashSet<>( userService.listRoles());
+//        Role autf = userService.findByIdRole(1L);
+//        Role rolU = userService.findByIdRole(2L);
+//        Set<Role> aut = new HashSet<>(Arrays.asList(autf));
+//        Set<Role> rol = new HashSet<>(Arrays.asList(rolU));
+//        List<Set<Role>> lise = Arrays.asList(aut, rol);
+        model.addAttribute("roleList", userService.listRoles());
         return "create";
     }
 
     @PostMapping("create")
-    public String createUser(/*@ModelAttribute("user") */User user, @RequestParam("listRoles") ArrayList<String> roles) {
+    public String createUser(/*@ModelAttribute("user") */User user/*, @RequestParam("listRoles") ArrayList<Long> roles*/) {
 
-        String role = roles.get(0);
-
-        Role rol = new Role(role);
-        Set<Role> aut = new HashSet<>(Arrays.asList(rol/*, rolU*/));
-        System.out.println(aut);
-        user.setRoles(aut);
+//        Long role = roles.get(0);
+//       // Role rol = new Role(role);
+       // Set<Role> aut = new HashSet<>(Arrays.asList(autf/*, rolU*/));
+      // List<Role> autl = Arrays.asList(user.getRoles().toArray(new Role[0]));
+        //       List<Role> lr = userService.listByRole(lsr);
+        // Role autf = userService.findByIdRole(1L);
+        List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
+        List<Role> liRo = userService.listByRole(lsr);
+        Role rol = userService.findByNameRole(user.getRoles().get(0).getRole());
+        System.out.println("---------------------");
+        List<Role> roll = Arrays.asList(rol);
+       // user.setRoles(lr);
+       // Set<Role> aut = new HashSet(Arrays.asList(user.getRoles()/*, rolU*/));
+        user.setRoles(liRo);
         System.out.println(user);
         userService.add(user);
         return "redirect:/admin";
@@ -61,12 +74,16 @@ public class UserController {
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
+        model.addAttribute("roleList", userService.listRoles());
         return "update";
     }
 
     @PostMapping("update")
     public String updateUser(User user) {
-        userService.update(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getRoles());
+        List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
+        List<Role> liRo = userService.listByRole(lsr);
+        user.setRoles(liRo);
+        userService.update(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(),/* user.getRoles()*/liRo);
         return "redirect:/admin";
     }
 }

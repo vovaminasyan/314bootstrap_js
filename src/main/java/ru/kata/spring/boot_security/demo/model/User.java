@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,32 +23,47 @@ public class User implements UserDetails {
 
     @Column(name = "email")
     private String email;
+    //private List<Long> listNumber;
+   // private Long number;
 
 //    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 //    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
 //    @Enumerated(EnumType.STRING)
-    @ManyToMany//(fetch=FetchType.LAZY)
-//    @JoinTable(name="users_roles",
-//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
     public User() {}
 
-    public User(String userName, String password, String email, Set<Role> roles) {
+    public User(String userName, String password, String email/*, Long number*/, List<Role> roles  /*List<Long> listNumber*/) {
         this.username = userName;
         this.password = password;
         this.email = email;
+       // this.number = number;
         this.roles = roles;
+       // this.listNumber = listNumber;
+
     }
 
-    public User(Long id, String userName, String password, String email, Set<Role> roles) {
+    public User(Long id, String userName, String password, String email,/* Long number,*/ List<Role> roles/*,  List<Long> listNumber*/) {
         this.id = id;
         this.username = userName;
         this.password = password;
         this.email = email;
+        //this.number = number;
         this.roles = roles;
+       // this.listNumber = listNumber;
     }
+
+//    public List<Long> getListNumber() {
+//        return listNumber;
+//    }
+
+//    public Long getNumber() {
+//        return number;
+//    }
 
     public Long getId() {
         return id;
@@ -109,11 +124,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

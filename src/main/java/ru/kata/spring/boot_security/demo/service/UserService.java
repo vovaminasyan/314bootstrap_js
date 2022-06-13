@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.Role;
 //import org.springframework.security.core.userdetails.User;
@@ -21,11 +22,35 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
+    private final RoleDao roleDao;
     private final UserDao userDao;
 
     @Autowired
-    public UserService(UserDao userDao) {
+    public UserService(RoleDao roleDao, UserDao userDao) {
+        this.roleDao = roleDao;
         this.userDao = userDao;
+    }
+
+    @Transactional
+    public boolean addRole(Role role) {
+        roleDao.add(role);
+        return true;
+    }
+
+    @Transactional
+    public Role findByNameRole(String name) { return roleDao.findByName(name); }
+
+    @Transactional
+    public List<Role> listRoles() { return roleDao.listRoles(); }
+
+    @Transactional
+    public Role findByIdRole(Long id) {
+        return roleDao.findByIdRole(id);
+    }
+
+    @Transactional
+    public List<Role> listByRole(List<String> name) {
+        return roleDao.listByName(name);
     }
 
     @Transactional
@@ -47,7 +72,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void update(Long id, String userName, String password, String email, Set<Role> roles) {
+    public void update(Long id, String userName, String password, String email, List<Role> roles) {
         userDao.update(id, userName, password, email, roles);
     }
 
@@ -74,7 +99,7 @@ public class UserService implements UserDetailsService {
 //                .password(userBas.getPassword())
 //                .roles(userBas.getRoles().toArray(String[]::new))
 //                .build();
-        return user;
+        return userBas;
     }
 
     private Collection<? extends GrantedAuthority> aug(Collection<Role> roles) {
