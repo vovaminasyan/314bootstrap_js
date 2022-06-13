@@ -31,14 +31,16 @@ import java.util.stream.Stream;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final SuccessUserHandler successUserHandler;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
-        this.successUserHandler = successUserHandler;
-    }
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService) {
+        this.successUserHandler = successUserHandler;
+        this.userService = userService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,43 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-
-//   //     userService.delete(15l);
-       Role rol = new Role("ROLE_ADMIN");
-       // Role rolU = new Role("ROLE_USER");
-       Set<Role> aut = new HashSet<>(Arrays.asList(rol/*, rolU*/));//Stream.of(rol).collect(Collectors.toSet());
-    //   ru.kata.spring.boot_security.demo.model.User us = new ru.kata.spring.boot_security.demo.model
-     //   .User("admin3", "admin", "op@kk", aut);
-//       // userService.update(19l,"admin4", "admin", "op@kk", aut);
-       //userService.add(us);
-        User user = userService.findByUsername("admin2");
-//     //   user.setRoles(aut);
-//        System.out.println(us.getRoles()+"-----");
-//        us.getRoles().stream().forEach(System.out::println);
-        System.out.println(user)/*userService.findById(19l)*/;
-      //  System.out.println(userService.findById(2l));
         auth.userDetailsService(userService);//.passwordEncoder(bCryptPasswordEncoder());
     }
 
-
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                .username("admin")
-//                .password("admin")
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 }

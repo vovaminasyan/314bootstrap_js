@@ -33,6 +33,8 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public boolean addRole(Role role) {
+        Role userBas = roleDao.findByName(role.getRole());
+        if(userBas != null) {return false;}
         roleDao.add(role);
         return true;
     }

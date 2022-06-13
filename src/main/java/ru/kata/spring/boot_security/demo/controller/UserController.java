@@ -32,34 +32,15 @@ public class UserController {
 
     @GetMapping("create")
     public String createUserForm(User user, Model model) {
-//        Set<Role> setr = new HashSet<>( userService.listRoles());
-//        Role autf = userService.findByIdRole(1L);
-//        Role rolU = userService.findByIdRole(2L);
-//        Set<Role> aut = new HashSet<>(Arrays.asList(autf));
-//        Set<Role> rol = new HashSet<>(Arrays.asList(rolU));
-//        List<Set<Role>> lise = Arrays.asList(aut, rol);
         model.addAttribute("roleList", userService.listRoles());
         return "create";
     }
 
     @PostMapping("create")
-    public String createUser(/*@ModelAttribute("user") */User user/*, @RequestParam("listRoles") ArrayList<Long> roles*/) {
-
-//        Long role = roles.get(0);
-//       // Role rol = new Role(role);
-       // Set<Role> aut = new HashSet<>(Arrays.asList(autf/*, rolU*/));
-      // List<Role> autl = Arrays.asList(user.getRoles().toArray(new Role[0]));
-        //       List<Role> lr = userService.listByRole(lsr);
-        // Role autf = userService.findByIdRole(1L);
+    public String createUser(/*@ModelAttribute("user") */User user) {
         List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
         List<Role> liRo = userService.listByRole(lsr);
-        Role rol = userService.findByNameRole(user.getRoles().get(0).getRole());
-        System.out.println("---------------------");
-        List<Role> roll = Arrays.asList(rol);
-       // user.setRoles(lr);
-       // Set<Role> aut = new HashSet(Arrays.asList(user.getRoles()/*, rolU*/));
         user.setRoles(liRo);
-        System.out.println(user);
         userService.add(user);
         return "redirect:/admin";
     }
@@ -83,7 +64,7 @@ public class UserController {
         List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
         List<Role> liRo = userService.listByRole(lsr);
         user.setRoles(liRo);
-        userService.update(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(),/* user.getRoles()*/liRo);
+        userService.update(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), liRo);
         return "redirect:/admin";
     }
 }
