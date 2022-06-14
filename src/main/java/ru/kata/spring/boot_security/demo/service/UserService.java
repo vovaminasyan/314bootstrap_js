@@ -32,7 +32,6 @@ public class UserService implements UserDetailsService {
         this.userDao = userDao;
     }
 
-   // @Transactional
     public boolean addRole(Role role) {
         Role userBas = roleDao.findByName(role.getRole());
         if(userBas != null) {return false;}
@@ -40,23 +39,18 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-   // @Transactional
     public Role findByNameRole(String name) { return roleDao.findByName(name); }
 
-    //@Transactional
     public List<Role> listRoles() { return roleDao.listRoles(); }
 
-    //@Transactional
     public Role findByIdRole(Long id) {
         return roleDao.findByIdRole(id);
     }
 
-    //@Transactional
     public List<Role> listByRole(List<String> name) {
         return roleDao.listByName(name);
     }
 
-    //@Transactional
     public boolean add(User user) {
         User userBas = userDao.findByName(user.getUsername());
         if(userBas != null) {return false;}
@@ -64,44 +58,33 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    //@Transactional
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
-    //@Transactional
     public void delete(Long id) {
         userDao.delete(id);
     }
 
-    //@Transactional
     public void update(Long id, String userName, String password, String email, List<Role> roles) {
         userDao.update(id, userName, password, email, roles);
     }
 
-    //@Transactional
     public User findById(Long id) {
         return userDao.findById(id);
     }
 
-    //@Transactional
     public User findByUsername(String userName) {
         return userDao.findByName(userName);
     }
 
     @Override
-    //@Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User userBas = findByUsername(username);
         if (userBas == null) {
             throw new UsernameNotFoundException(username + " not found");
         }
         UserDetails user = new org.springframework.security.core.userdetails.User(userBas.getUsername(), userBas.getPassword(), aug(userBas.getRoles()));
-
-//        UserDetails user = org.springframework.security.core.userdetails.*/User.builder().username(userBas.getUsername())
-//                .password(userBas.getPassword())
-//                .roles(userBas.getRoles().toArray(String[]::new))
-//                .build();
         return userBas;
     }
 

@@ -23,12 +23,7 @@ public class User implements UserDetails {
 
     @Column(name = "email")
     private String email;
-    //private List<Long> listNumber;
-   // private Long number;
 
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name="users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -37,33 +32,20 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String userName, String password, String email/*, Long number*/, List<Role> roles  /*List<Long> listNumber*/) {
+    public User(String userName, String password, String email, List<Role> roles) {
         this.username = userName;
         this.password = password;
         this.email = email;
-       // this.number = number;
         this.roles = roles;
-       // this.listNumber = listNumber;
-
     }
 
-    public User(Long id, String userName, String password, String email,/* Long number,*/ List<Role> roles/*,  List<Long> listNumber*/) {
+    public User(Long id, String userName, String password, String email, List<Role> roles) {
         this.id = id;
         this.username = userName;
         this.password = password;
         this.email = email;
-        //this.number = number;
         this.roles = roles;
-       // this.listNumber = listNumber;
     }
-
-//    public List<Long> getListNumber() {
-//        return listNumber;
-//    }
-
-//    public Long getNumber() {
-//        return number;
-//    }
 
     public Long getId() {
         return id;
@@ -135,13 +117,11 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return //"User{" +
-                "id=" + id +
+        return                 "id=" + id +
                 ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", roles=" + getRoles();
-                        //+ '}';
     }
 }
 
