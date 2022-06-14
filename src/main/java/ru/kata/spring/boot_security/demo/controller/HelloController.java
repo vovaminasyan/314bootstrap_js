@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.security.Principal;
 
 @Controller
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+//@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class HelloController {
     private final UserDao ud;
 

@@ -20,6 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
 
     private final RoleDao roleDao;
@@ -31,7 +32,7 @@ public class UserService implements UserDetailsService {
         this.userDao = userDao;
     }
 
-    @Transactional
+   // @Transactional
     public boolean addRole(Role role) {
         Role userBas = roleDao.findByName(role.getRole());
         if(userBas != null) {return false;}
@@ -39,23 +40,23 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    @Transactional
+   // @Transactional
     public Role findByNameRole(String name) { return roleDao.findByName(name); }
 
-    @Transactional
+    //@Transactional
     public List<Role> listRoles() { return roleDao.listRoles(); }
 
-    @Transactional
+    //@Transactional
     public Role findByIdRole(Long id) {
         return roleDao.findByIdRole(id);
     }
 
-    @Transactional
+    //@Transactional
     public List<Role> listByRole(List<String> name) {
         return roleDao.listByName(name);
     }
 
-    @Transactional
+    //@Transactional
     public boolean add(User user) {
         User userBas = userDao.findByName(user.getUsername());
         if(userBas != null) {return false;}
@@ -63,33 +64,33 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    @Transactional
+    //@Transactional
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
-    @Transactional
+    //@Transactional
     public void delete(Long id) {
         userDao.delete(id);
     }
 
-    @Transactional
+    //@Transactional
     public void update(Long id, String userName, String password, String email, List<Role> roles) {
         userDao.update(id, userName, password, email, roles);
     }
 
-    @Transactional
+    //@Transactional
     public User findById(Long id) {
         return userDao.findById(id);
     }
 
-    @Transactional
+    //@Transactional
     public User findByUsername(String userName) {
         return userDao.findByName(userName);
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User userBas = findByUsername(username);
         if (userBas == null) {
