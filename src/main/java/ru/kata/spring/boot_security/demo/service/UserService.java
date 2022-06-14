@@ -6,17 +6,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.Role;
-//import org.springframework.security.core.userdetails.User;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +25,10 @@ public class UserService implements UserDetailsService {
 
     private final RoleDao roleDao;
     private final UserDao userDao;
+
+    public PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
 
     @Autowired
     public UserService(RoleDao roleDao, UserDao userDao) {
@@ -54,6 +58,7 @@ public class UserService implements UserDetailsService {
     public boolean add(User user) {
         User userBas = userDao.findByName(user.getUsername());
         if(userBas != null) {return false;}
+        user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
         userDao.add(user);
         return true;
     }
