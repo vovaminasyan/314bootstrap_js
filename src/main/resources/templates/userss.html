@@ -70,7 +70,7 @@
                 <td>
 <!--                    <ul>-->
                         <th:block th:each="msg : ${user.getRoles()}">
-                            <li th:text="${msg.getRole()}"></li>
+                            <li th:text="${msg.getNoPrefix()}"></li>
                         </th:block>
 <!--                    </ul>-->
                 </td>
