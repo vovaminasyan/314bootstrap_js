@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDao implements UseDaoInterf {
+public class UserDaoImpl implements UseDaoInterf {
 
     @PersistenceContext
     private EntityManager em;

@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleDao;
-import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.dao.RoleDaoImpl;
+import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -21,17 +20,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserService {
 
-    private final RoleDao roleDao;
-    private final UserDao userDao;
+    private final RoleDaoImpl roleDao;
+    private final UserDaoImpl userDao;
 
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
     @Autowired
-    public UserService(RoleDao roleDao, UserDao userDao) {
+    public UserServiceImpl(RoleDaoImpl roleDao, UserDaoImpl userDao) {
         this.roleDao = roleDao;
         this.userDao = userDao;
     }
@@ -72,7 +71,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void update(Long id, String userName, String password, String email, List<Role> roles) {
-        userDao.update(id, userName, password, email, roles);
+        userDao.update(id, userName, bCryptPasswordEncoder().encode(password), email, roles);
     }
 
     public User findById(Long id) {

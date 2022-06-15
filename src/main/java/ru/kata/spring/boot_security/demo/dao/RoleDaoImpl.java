@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class RoleDao implements RolDaoInterf {
+public class RoleDaoImpl implements RolDaoInterf {
 
     @PersistenceContext
     private EntityManager em;

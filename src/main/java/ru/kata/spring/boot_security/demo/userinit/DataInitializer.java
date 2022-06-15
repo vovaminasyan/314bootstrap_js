@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 public class DataInitializer {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostConstruct
     public void init() {
