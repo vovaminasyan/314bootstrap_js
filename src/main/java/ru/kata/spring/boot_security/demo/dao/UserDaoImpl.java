@@ -25,13 +25,7 @@ public class UserDaoImpl implements UseDaoInterf {
         em.remove(us);
     }
 
-    public void update(Long id, String userName, String password, String email, List<Role> roles) {
-        User us = em.find(User.class, id);
-        us.setId(id);
-        us.setUsername(userName);
-        us.setPassword(password);
-        us.setEmail(email);
-        us.setRoles(roles);
+    public void update(User us) {
         em.merge(us);
     }
 

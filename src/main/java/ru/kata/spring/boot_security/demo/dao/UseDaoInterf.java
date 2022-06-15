@@ -8,7 +8,7 @@ import java.util.List;
 public interface UseDaoInterf {
     User findByName(String username);
     void delete(Long id);
-    void update(Long id, String userName, String password, String email, List<Role> roles);
+    void update(User us);
     boolean add(User user);
     List<User> listUsers();
     User findById(Long id);

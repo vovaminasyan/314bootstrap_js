@@ -70,8 +70,8 @@ public class UserServiceImpl implements UserService {
         userDao.delete(id);
     }
 
-    public void update(Long id, String userName, String password, String email, List<Role> roles) {
-        userDao.update(id, userName, bCryptPasswordEncoder().encode(password), email, roles);
+    public void update(User us) {
+        userDao.update(us);
     }
 
     public User findById(Long id) {
