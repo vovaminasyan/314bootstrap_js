@@ -71,6 +71,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public void update(User us) {
+        User userBas = findById(us.getId());
+        System.out.println(userBas);
+        System.out.println(us);
+        if(!userBas.getPassword().equals(us.getPassword())) {
+            us.setPassword(bCryptPasswordEncoder().encode(us.getPassword()));
+        }
         userDao.update(us);
     }
 

@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserServiceImpl userService;
-    public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+//    public PasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder(12);
+//    }
 
     @Autowired
     public UserController(UserServiceImpl userService) {
