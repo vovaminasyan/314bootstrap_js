@@ -14,13 +14,30 @@ import java.util.stream.Collectors;
 @Controller
 //@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("admin")
-public class UserController {
+public class AdminController {
 
     private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserServiceImpl userService) {
+    public AdminController(UserServiceImpl userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("edit")
+    public String edit(Model model) {
+        model.addAttribute("users", userService.listUsers());
+        return "edit_bootstrap";
+    }
+
+    @GetMapping("delet")
+    public String delet(Model model) {
+        model.addAttribute("users", userService.listUsers());
+        return "delete_bootstrap";
+    }
+
+    @GetMapping("start")
+    public String index() {
+        return "start_page";
     }
 
     @GetMapping
