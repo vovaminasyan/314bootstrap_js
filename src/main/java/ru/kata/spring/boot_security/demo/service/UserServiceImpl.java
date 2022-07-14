@@ -14,6 +14,7 @@ import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,6 +59,10 @@ public class UserServiceImpl implements UserService {
         User userBas = userDao.findByName(user.getUsername());
         if(userBas != null) {return false;}
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
+//        List<String> roleUser = new ArrayList<>();
+//        roleUser.add("ROLE_USER");
+//        List<Role> liRo = listByRole(roleUser);
+//        user.setRoles(liRo);
         userDao.add(user);
         return true;
     }
