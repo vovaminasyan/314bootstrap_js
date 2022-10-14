@@ -15,9 +15,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand"
-           th:text="|${messages.getEmail()} with roles: ADMIN|">
+           th:text="|${messages.getEmail()} with roles: USER|">
         </a>
-        <div class="nav ml-auto" sec:autorize="hasRole('ADMIN')">
+        <div class="nav ml-auto">
+<!--             sec:autorize="hasRole('ADMIN')">-->
             <a th:href="@{/logout}" method="post">Logout</a>
         </div>
     </nav>

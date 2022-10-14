@@ -24,6 +24,19 @@ public class AdminController {
         this.userService = userService;
     }
 
+    @GetMapping("/allUser")
+    @ResponseBody
+    public List<User> allUser() {
+        System.out.println("list all REST API ..........");
+        return userService.listUsers();
+    }
+
+    @GetMapping("/oneUser/{id}")
+    @ResponseBody
+    public User getOneUser(@PathVariable("id") Long id, Model model) {
+        return userService.findById(id);
+    }
+
     @GetMapping("/edit")
     public String edit(User user,Model model) {
         model.addAttribute("users", userService.listUsers());
@@ -56,14 +69,19 @@ public class AdminController {
         return "start_page";
     }
 
+//    @GetMapping
+//    public String users(Model model, Principal princ) {
+//        User us = userService.findByUsername(princ.getName());
+//        model.addAttribute("messages", us);
+//        model.addAttribute("use",new User());
+//        model.addAttribute("users", userService.listUsers());
+//        model.addAttribute("roleList", userService.listRoles());
+//        return "userss";
+//    }
+
     @GetMapping
-    public String users(Model model, Principal princ) {
-        User us = userService.findByUsername(princ.getName());
-        model.addAttribute("messages", us);
-        model.addAttribute("use",new User());
-        model.addAttribute("users", userService.listUsers());
-        model.addAttribute("roleList", userService.listRoles());
-        return "userss";
+    public String users2() {
+        return "index2";
     }
 
     @GetMapping("/create")
