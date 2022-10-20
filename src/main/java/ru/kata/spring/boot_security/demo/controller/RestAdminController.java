@@ -31,18 +31,18 @@ public class RestAdminController {
     }
 
     @PostMapping("/restCreat")
-    public void creatRestUser(@RequestBody User user/*, @RequestParam(value = "sele") String sel*/) {
+    public User creatRestUser(@RequestBody User user/*, @RequestParam(value = "sele") String sel*/) {
         if(user.getRoles()!=null) {
             List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
             List<Role> liRo = userService.listByRole(lsr);
             user.setRoles(liRo);
         }
         userService.add(user);
-        //return user;
+        return user;
     }
 
     @PatchMapping("/restUpdate")
-    public void updateRestUser(@RequestBody User user) {System.out.println(user);
+    public User updateRestUser(@RequestBody User user) {System.out.println(user);
         if(user.getRoles()!=null) {
             List<String> lsr = user.getRoles().stream().map(r->r.getRole()).collect(Collectors.toList());
             List<Role> liRo = userService.listByRole(lsr);
@@ -50,7 +50,7 @@ public class RestAdminController {
         }
 
         userService.update(user);
-        //return "redirect:/admin";
+        return user;
     }
 
     @DeleteMapping("/restDelete/{id}")

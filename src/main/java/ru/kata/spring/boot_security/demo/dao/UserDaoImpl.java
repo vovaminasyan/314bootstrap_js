@@ -15,7 +15,8 @@ public class UserDaoImpl implements UseDaoInterf {
     private EntityManager em;
 
     public User findByName(String username) {
-        return em.createQuery("select u FROM User u JOIn fETCH u.roles WHERe u.username = :id", User.class)
+        return em.createQuery("select u FROM User u  WHERe u.username = :id", User.class)
+        //return em.createQuery("select u FROM User u JOIn fETCH u.roles WHERe u.username = :id", User.class)
                 .setParameter("id", username)
                 .getResultList().stream().findAny().orElse(null);
     }

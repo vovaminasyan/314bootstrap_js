@@ -30,16 +30,16 @@ function klop(o){
 }
 //window.addEventListener('DOMContentLoaded', start);
 //let users = fetch("http://localhost:8080/admin/allUser").then(res=>res.json());
-
+const tbody = document.querySelector("#tbod");
+const tabus = document.querySelector("#tablusers");
 let str = "";
+let dr;
 $(document).ready( async function () {
 //async function lop() {
    // if ('content' in document.createElement('template')) {
         let users = await fetch("http://localhost:8080/admin/allUser").then(res => res.json());
-        const tbody = document.querySelector("#tbod");
         const template = document.querySelector('#product');
          // let temp = '<div class="dc">tecst</div>';
-
         users.forEach((u) => {
             let rol = "";
             u.roles.forEach((u)=> {
@@ -53,7 +53,6 @@ $(document).ready( async function () {
             // td[3].textContent = u.email;
             // td[4].textContent = rol;
             // tbody.appendChild(clone);
-
             str +=`
  <tr id="dele${u.id}"><td>${u.id}</td><td>${u.username}</td><td>${u.password}</td>
                     <td>${u.email}</td><td>${rol}</td>
@@ -67,13 +66,17 @@ $(document).ready( async function () {
             // console.log(ody.id);
            // setTimeout(()=> {}, 5000);
         })
-    tbody.innerHTML=str+'<tr><td>kjhg</td></tr>';
+    //alert();
+  // await creat().then(r=>str+=r);
+        //alert('k');
+    //tbody.innerHTML = str// + await creat();
+       // tbody.innerHTML = ;
         //$("#tbod").html(str);
     // tbody.innerText = str;
         // let user=  await fetch("http://localhost:8080/oneUser/2").then(res => res.json());
         // let rol=await user.roles;
         // let roll = rol[0].noPrefix;
-        // console.log(roll);
+
         // console.log(user);
         //let roles=await user.then(res => res.json());
 
@@ -100,12 +103,17 @@ $(document).ready( async function () {
        //      td[3].textContent = u.email;
        //      tbody.appendChild(clone);
        //  })
-
+    tbody.innerHTML = str;
+        //await f(str);
+       //await creat(str);
     // } else {
     //     alert("oiuytgfdxcvbnm");
     // }
 })
+//let dr = "";
+//console.log(str);
 //lop();
+
 //let namSel;
 //let elSel = document.getElementById('selector');
 let val = [];
@@ -133,6 +141,8 @@ $(document).ready( async function () {
    // document.getElementById('selectorEdit').innerHTML = sel;
     document.getElementById('selector').innerHTML = sel;
 })
+
+//функция активизирующая имеющиеся роли при изменении
 //$(document).ready( async function () {
 async function rol(userRol) {
     console.log(userRol);
@@ -140,15 +150,16 @@ async function rol(userRol) {
     // console.log(rollist); id="${++v}" data-num="${++v}" console.log(val.push($(this).find('option:selected')))
     let rol = "";
     let bul;
-    for ( let n=0; n < rollist.length; n++) {
-        for (let i=0; i < userRol.length; i++) {
+    for ( let n = 0; n < rollist.length; n++) {
+        for (let i = 0; i < userRol.length; i++) {
             if (rollist[n].noPrefix === userRol[i]) {
             rol += `<option value="${rollist[n].role}" selected>${rollist[n].noPrefix}</option>`;
             bul = true;
             break;
-        }}
+            }
+        }
         if (bul) {
-            //bul = false;
+            bul = false;
             continue;
         }
         rol += `<option value="${rollist[n].role}">${rollist[n].noPrefix}</option>`;
@@ -160,6 +171,7 @@ async function rol(userRol) {
     document.getElementById('selectorEdit').innerHTML = sel;
    // document.getElementById('selector').innerHTML = sel;
 }
+
 // $('#select').on("change", function (){
 //     console.log(this);
 // })
@@ -185,17 +197,15 @@ async function rol(userRol) {
 }
 
 $(document).ready(async function() {
-let princ = await fetch("http://localhost:8080/restPrincipal").then(r=>r.json());
-
-for(let i = 0; i < princ.roles.length; i++) {
-    console.log(princ.roles[i].role);
-if(princ.roles[i].role === 'ROLE_ADMIN') {
-    console.log('содержит admin')
-    return;
-}}
+    let princ = await fetch("http://localhost:8080/restPrincipal").then(r=>r.json());
+    for(let i = 0; i < princ.roles.length; i++) {
+        console.log(princ.roles[i].role);
+        if(princ.roles[i].role === 'ROLE_ADMIN') {
+            console.log('содержит admin')
+            return;
+        }}
     $('#usertabl').hide();
     visualTablePrincipal();
-
 })
 
 async function visualTablePrincipal() {
@@ -237,25 +247,44 @@ $('.action').on('click', async function () {
 
 $(document).ready( async function () {
     let princ = await fetch("http://localhost:8080/restPrincipal").then(r => r.json());
-    let rol="";
+    let rol = "";
     princ.roles.forEach((r)=>{rol+= r.noPrefix + "  "});
     document.getElementById('name_navbar').innerHTML = `<b>${princ.email}</b>` + ' with roles: ' + `<b>${rol}</b>`;
 })
+
+async function f(str) {
+    // let rol = "";
+    // u.roles.forEach((u)=> {
+    //     rol += u.noPrefix + " \n";
+    // });
+    let row =` <tr id="deleop"><td></td><td>${usernameCreateValue.value}</td><td>${passwordCreateValue.value}</td>
+                    <td>${emailCreateValue.value}</td><td></td>
+                    <td><button class="btn btn-info editbtn">edit</button></td>
+                    <td><button class="btn btn-danger delbtn">delete</button></td></tr>`;
+    tbody.innerHTML=str+row;
+}
 
 const formCreate = document.querySelector('.formCreate');
 const usernameCreateValue = document.getElementById('usernameCreate');
 const emailCreateValue = document.getElementById('emailCreate');
 const passwordCreateValue = document.getElementById('passwordCreate');
 //const roleCreateValue = $('#select').val();
-
-$(document).ready( function() {
+//let dr;
+// let kl = document.querySelectorAll('#tbod tr');
+let par = tbody.parentNode;
+let bn = par.children[1].innerHTML;
+// console.log(kl);
+let poi = $('#tbod tr:last')[0];
+console.log(tbody);
+//async function creat() {
+$(document).ready(async function () {
     $('.btnCreate').on('click', async function (e) {
 //formCreate.addEventListener('submit', async (e) => {
         e.preventDefault();
-        console.log(usernameCreateValue.value);
-        //console.log($('#select'))
-        //console.log(roleCreateValue);
-        await fetch('http://localhost:8080/restCreat', {
+
+        let kl = document.querySelectorAll('#tbod tr');
+        console.log(kl[(kl.length)-1]);
+        let u = await fetch('http://localhost:8080/restCreat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -266,30 +295,57 @@ $(document).ready( function() {
                 email: emailCreateValue.value,
                 roles: $('#select').val()
             })
-        }).then(f=>console.log(f));
-       document.getElementById('usertabl').click();
+        }).then(f=>f.json());
+        usernameCreateValue.value = "";
+        emailCreateValue.value = "";
+        passwordCreateValue.value = "";
+        document.getElementById('select').value = "";
+        document.getElementById('ad_pan').click();
+        //let pol = document.getElementById(`dele${u.id-1}`);
+        let intab = document.getElementById('tbod');
+        let rol = "";
+        u.roles.forEach((u)=> {
+            rol += u.noPrefix + " \n";
+        });
+        row =` <tr id="dele${u.id}"><td>${u.id}</td><td>${u.username}</td><td>${u.password}</td>
+                    <td>${u.email}</td><td>${rol}</td>
+                    <td><button class="btn btn-info editbtn">edit</button></td>
+                    <td><button class="btn btn-danger delbtn">delete</button></td></tr>`;
        // $(this).hide();
         //document.getElementById('homeCreate').style.display="block";
         // str+='kjhg';
-        console.log(usernameCreateValue.value);
+       //  console.log(dr);
+       // alert('kjhg');
         // document.getElementById('tbod').html(str);
         //window.history.back();
         //$("#tbod").html(str);
+       //  $('#tbod').after(dr);
+       // tbody.innerHTML=str+'kjh';
+        if(u.id == null) {
+            alert('a user with that name is already exists\n\nесть уже такой');
+            return;
+        }
+        intab.insertAdjacentHTML('beforeend', row);
+        //return dr;
     })
-});
+})
+//console.log(creat().then(t=>t.json));
 
 const idFormEdit = document.getElementById('idFormEdit');
 const usernameFormEdit = document.getElementById('usernameFormEdit');
 const emailFormEdit = document.getElementById('emailFormEdit');
 const passwordFormEdit = document.getElementById('passwordFormEdit');
 //const roleCreateValue = $('#select').val();
+let row = "";
 
+//кнопка edit в модалке
 $(document).ready( function() {
     $('#submitEdit').on('click', async function (e) {
 //formCreate.addEventListener('submit', async (e) => {
         e.preventDefault();
-        console.log(usernameFormEdit.value);
-        await fetch('http://localhost:8080/restUpdate', {
+        let id = idFormEdit.value;
+        let pol = document.getElementById(`dele${id}`);
+        let u = await fetch('http://localhost:8080/restUpdate', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -301,10 +357,22 @@ $(document).ready( function() {
                 email: emailFormEdit.value,
                 roles: $('#selectEdit').val()
             })
+        }).then(u=>u.json());
+         //console.log(u);
+        let rol = "";
+        u.roles.forEach((u)=> {
+            rol += u.noPrefix + " \n";
         });
-        document.getElementById('usertabl').click();
-         $(this).hide();
-        //$('#editMod').modal('hide');
+        row =` <tr id="dele${u.id}"><td>${u.id}</td><td>${u.username}</td><td>${u.password}</td>
+                    <td>${u.email}</td><td>${rol}</td>
+                    <td><button class="btn btn-info editbtn">edit</button></td>
+                    <td><button class="btn btn-danger delbtn">delete</button></td></tr>`;
+      //  $(`#dele${id}`)
+       // pol.insertAdjacentHTML('afterend',row);
+        pol.innerHTML = row;
+        // document.getElementById('usertabl').click();
+         //$(this).hide();
+        $('#editMod').modal('hide');
     })
 });
 
@@ -346,6 +414,7 @@ const on = (element, even, selector, handle)=>{
     })
 }
 
+//модальное окно при изменении
 on(document, 'click', '.editbtn', (e)=>{
     e.preventDefault();
     // console.log('.delbtn');
@@ -355,8 +424,8 @@ on(document, 'click', '.editbtn', (e)=>{
     const password = fila.children[2].innerHTML;
     const email = fila.children[3].innerHTML;
     const role = fila.children[4].innerHTML;
-     let rolAr = role.replace(/[^A-Za-z]+/, " ").trim().split(/\s+/);
-      rol(rolAr);
+    let rolAr = role.replace(/[^A-Za-z]+/, " ").trim().split(/\s+/);
+    rol(rolAr);
    // console.log(role);
     $('#idFormEdit').val(id);
     $('#usernameFormEdit').val(username);
@@ -367,6 +436,7 @@ on(document, 'click', '.editbtn', (e)=>{
     // console.log(loi);
 })
 
+//модальное окно при удалении
 on(document, 'click', '.delbtn', (e)=>{
     e.preventDefault();
    // console.log('.delbtn');
