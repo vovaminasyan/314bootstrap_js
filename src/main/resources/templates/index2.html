@@ -18,10 +18,7 @@
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" id="name_navbar">
-<!--            <b id="name_nav"></b>-->
-            <!--           th:text="|${messages.getEmail()} with roles: ADMIN|">-->
-        </a>
+        <a class="navbar-brand" id="name_navbar"></a>
         <div class="nav ml-auto">
             <a th:href="@{/logout}" method="post">Logout</a>
         </div>
@@ -92,17 +89,6 @@
                                         <div class="col text-center">Role</div>
                                         <div class="row justify-content-center">
                                             <div class="col-3" id="selector">
-<!--                                                <select id="select" multiple class="form-control" size="3">-->
-<!--&lt;!&ndash;                                                        th:name="roles" th:id="role">&ndash;&gt;-->
-<!--                                                    <option value="">no role</option>-->
-<!--                                                    <option>admin</option>-->
-<!--                                                    <option>user</option>-->
-<!--&lt;!&ndash;                                                            th:each="rol:${roleList}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                            th:value="${rol.role}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                            th:text="${rol.getNoPrefix()}"&ndash;&gt;-->
-
-<!--                                                    </option>-->
-<!--                                                </select>-->
                                             </div>
                                         </div>
 
@@ -127,8 +113,6 @@
                                         <th>password</th>
                                         <th>email</th>
                                         <th>roles</th>
-<!--                                        <th></th>-->
-<!--                                        <th></th>-->
                                     </tr>
                                     </thead>
                                     <tbody id="tbod"></tbody>
@@ -140,11 +124,6 @@
             </div>
         </div>
     </div>
-<!--</div>-->
-<!--</div>-->
-
-<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adMod">new modal</button>-->
-<!--<a id="bn2" class="btn btn-primary ebtn2">kolp</a>-->
 
 <div class="modal fade" id="adMod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form th:action="@{/admin/update}" method="POST">
@@ -195,54 +174,6 @@
     </form>
 </div>
 
-<!--<div class="myFormModalCreat">-->
-<!--    <div class="modal fade" id="neModCreat" tabindex="-1"-->
-<!--         role="dialog" aria-labelledby="myFormModalCreat"-->
-<!--         aria-hidden="true">-->
-
-<!--        <div class="modal-dialog" role="document">-->
-<!--            <div class="modal-content justify-content-center">-->
-<!--                <div class="modal-header text-center">-->
-<!--                    <h4 class="modal-title text-center">delete user</h4>-->
-<!--                    <button class="close" data-dismiss="modal">x</button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <form class="modal-delete">-->
-<!--                        <div class="form-group">-->
-<!--                            <div class="text-center">ID</div>-->
-<!--                            &lt;!&ndash;    <div class="col-sm-auto">&ndash;&gt;-->
-<!--                            <input readonly type="number" class="form-control" name="id" id="idFormCreat">-->
-<!--                            &lt;!&ndash; type="text" name="id"-->
-<!--                                  class="form-control" placeholder="Enter Username"/>&ndash;&gt;-->
-<!--                            &lt;!&ndash;    </div>&ndash;&gt;-->
-
-<!--                            <label for="username" class="col text-center"><b>username</b></label>-->
-<!--                            <input type="text" class="form-control" name="username" id="usernameFormCreat" placeholder="Enter Username">-->
-
-<!--                            <label for="username" class="col text-center"><b>emil</b></label>-->
-<!--                            <input type="text" class="form-control" name="username" id="emailFormCreat">-->
-
-<!--                            <label for="username" class="col text-center"><b>password</b></label>-->
-<!--                            <input type="text" class="form-control" name="username" id="passwordFormCreat">-->
-
-<!--                            <label for="username" class="col text-center"><b>role</b></label>-->
-<!--                            <input type="text" class="form-control" name="username" id="roleFormCreat">-->
-
-<!--                            <div class="modal-footer">-->
-<!--                                &lt;!&ndash;                            <button class="close" data-dismiss="modal">x</button>&ndash;&gt;-->
-<!--                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                                <button type="submit" id="submitCreat" class="btn btn-primary">Creat</button>-->
-<!--                                &lt;!&ndash;  <a href="@{http://localhost:8080/restDelete/${id}}" class="btn btn-danger">Delete</a>&ndash;&gt;-->
-<!--                            </div>-->
-
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class="modal fade" id="editMod" tabindex="-1" role="dialog" aria-labelledby="editMod" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -256,9 +187,6 @@
                         <div class="text-center">ID</div>
                         <!--    <div class="col-sm-auto">-->
                         <input readonly type="number" class="form-control" name="id" id="idFormEdit">
-                        <!-- type="text" name="id"
-                              class="form-control" placeholder="Enter Username"/>-->
-                        <!--    </div>-->
 
                         <label for="username" class="col text-center"><b>username</b></label>
                         <input type="text" class="form-control" name="username" id="usernameFormEdit" placeholder="Enter Username">
@@ -269,19 +197,14 @@
                         <label for="username" class="col text-center"><b>password</b></label>
                         <input type="text" class="form-control" name="username" id="passwordFormEdit">
 
-<!--                        <label for="username" class="col text-center"><b>role</b></label>-->
-<!--                        <input type="text" class="form-control" name="username" id="roleFormEdit">-->
-
                         <div class="text-center">Role</div>
                             <div id="selectorEdit"></div>
                 </form>
             </div>
             <div class="modal-footer">
-            <!--                            <button class="close" data-dismiss="modal">x</button>-->
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" id="submitEdit" class="btn btn-primary">edit</button>
-            <!--  <a href="@{http://localhost:8080/restDelete/${id}}" class="btn btn-danger">Delete</a>-->
-        </div>
+            </div>
         </div>
     </div>
 </div>
@@ -303,9 +226,6 @@
                             <div class="text-center">ID</div>
                             <!--    <div class="col-sm-auto">-->
                             <input readonly type="number" class="form-control" name="id" id="idForm">
-                            <!-- type="text" name="id"
-                                  class="form-control" placeholder="Enter Username"/>-->
-                            <!--    </div>-->
 
                             <label for="username" class="col text-center"><b>username</b></label>
                             <input type="text" class="form-control" name="username" id="usernameForm" placeholder="Enter Username">
@@ -320,12 +240,9 @@
                             <input type="text" class="form-control" name="username" id="roleForm">
 
                             <div class="modal-footer">
-                                <!--                            <button class="close" data-dismiss="modal">x</button>-->
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" id="submitDelete" class="btn btn-primary">remove</button>
-                                <!--  <a href="@{http://localhost:8080/restDelete/${id}}" class="btn btn-danger">Delete</a>-->
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -333,41 +250,10 @@
         </div>
     </div>
 </div>
-<!--<div id="app">{{ message }}</div>-->
-<!--<script type="text/javascript">-->
-<!--    alert("dfghjkl");-->
-<!--</script>-->
-<!--<table id="producttable">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <td>UPS_Code</td>-->
-<!--        <td>Product_Name</td>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody id="bod"></tbody>-->
-<!--</table>-->
-<!--<template id="productrow">-->
-<!--    <tr>-->
-<!--        <td class="record"></td>-->
-<!--        <td></td>-->
-<!--    </tr>-->
-<!--</template>-->
-
-<!--<template id="product">-->
-<!--    <tr>-->
-<!--        <td class="record"></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--    </tr>-->
-<!--</template>-->
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 <script type="text/javascript" src="main.js" th:src="@{main.js}"></script>
 <!--<script th:src="@{main.js}"></script>-->
 </body>
-
 </html>

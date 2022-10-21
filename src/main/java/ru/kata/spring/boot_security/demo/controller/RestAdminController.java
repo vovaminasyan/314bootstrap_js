@@ -19,6 +19,11 @@ public class RestAdminController {
         this.userService = userService;
     }
 
+    @GetMapping("/allUser")
+    public List<User> allUser() {
+        return userService.listUsers();
+    }
+
     @GetMapping("/restPrincipal")
     public User getPrincipal(Principal princ) {
         return userService.findByUsername(princ.getName());

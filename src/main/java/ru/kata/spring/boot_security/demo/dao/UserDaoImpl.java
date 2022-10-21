@@ -30,6 +30,7 @@ public class UserDaoImpl implements UseDaoInterf {
         em.merge(us);
     }
 
+
     public boolean add(User user) {
         em.persist(user);
         return true;
